@@ -49,7 +49,7 @@ class SlotView extends PIXI.Container {
     const targetY = 1;
     const targetAlpha = 1;
 
-    const loog = () => {
+    const animate = () => {
       const currentScale = this.#frame.scale.x;
       const dx = targetX - this.#frame.scale.x;
       const dy = targetY - this.#frame.scale.y;
@@ -66,10 +66,10 @@ class SlotView extends PIXI.Container {
         this.#frame.scale.x = targetX;
         this.#frame.scale.y = targetY;
         this.#frame.alpha = targetAlpha;
-        pixiApp.pixiGame.ticker.remove(loog);
+        pixiApp.pixiGame.ticker.remove(animate);
       }
     };
-    pixiApp.pixiGame.ticker.add(loog);
+    pixiApp.pixiGame.ticker.add(animate);
   }
 }
 

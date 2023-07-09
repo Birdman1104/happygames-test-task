@@ -10,25 +10,15 @@ export const getGameBounds = () => {
   return new PIXI.Rectangle(0, 0, w, h);
 };
 
-export const fitDimension = (dim, minRatio, maxRatio) => {
-  const ratioW = dim.width / dim.height;
-  const ratioH = dim.height / dim.width;
-
-  if (ratioW < ratioH) {
-    if (ratioW > maxRatio) {
-      dim.width = dim.width * (maxRatio / ratioW);
-    } else if (ratioW < minRatio) {
-      dim.height = dim.height * (ratioW / minRatio);
-    }
+export const fitDimension = () => {
+  const aspect = 16 / 9;
+  let { innerWidth: w, innerHeight: h } = window;
+  if (w > h * aspect) {
+    w = h * aspect;
   } else {
-    if (ratioH > maxRatio) {
-      dim.height = dim.height * (maxRatio / ratioH);
-    } else if (ratioH < minRatio) {
-      dim.width = dim.width * (ratioH / minRatio);
-    }
+    h = (w * 1) / aspect;
   }
-
-  return dim;
+  return { width: w, height: h };
 };
 
 export const isSquareLikeScreen = () => {

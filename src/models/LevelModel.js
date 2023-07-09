@@ -15,11 +15,16 @@ export class LevelModel extends ObservableModel {
   #slots; // SlotModel[]
   #data; // all the fetched data
   #imagesToLoad; // links to all the images that must be loaded
+  #isLandscape = false;
 
   constructor(levelNumber) {
     super("LevelModel");
 
     this.#levelNumber = levelNumber;
+  }
+
+  get isLandscape() {
+    return this.#isLandscape;
   }
 
   get levelNumber() {
@@ -68,8 +73,9 @@ export class LevelModel extends ObservableModel {
     const tempArr = [];
     for (const d of this.#data) {
       const texture = `level${this.#levelNumber}_${d.name}`;
-      if (d.layer === "standart") {
+      if (d.name === "layer_0") {
         this.layer = new SlotModel(d, texture);
+        this.#isLandscape = d.width > d.height;
       } else {
         tempArr.push(new SlotModel(d, texture));
       }

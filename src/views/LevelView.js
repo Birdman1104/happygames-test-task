@@ -1,3 +1,4 @@
+import { LEVEL_TYPE } from "../configs/Const.js";
 import LayerView from "./LayerView.js";
 import SlotView from "./SlutView.js";
 
@@ -6,10 +7,12 @@ class LevelView extends PIXI.Container {
   #slotsConfig;
   #layer;
   #slots;
-  constructor(config) {
+  #type;
+  constructor(config, type) {
     super();
     this.#layerConfig = config.layer;
-    this.#slotsConfig = config.slots;
+    this.#type = type;
+    this.#slotsConfig = this.#type === LEVEL_TYPE.slots ? config.slots : [];
     this.#build();
   }
 
@@ -31,8 +34,6 @@ class LevelView extends PIXI.Container {
       this.addChild(slot);
       return slot;
     });
-    // this.#layer = new LayerView(this.#layerConfig);
-    // this.addChild(this.#layer);
   }
 }
 

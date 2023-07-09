@@ -12,9 +12,7 @@ class LayerView extends PIXI.Container {
     const { texture } = this.#config;
     this.#image = PIXI.Sprite.from(texture);
     this.#image.eventMode = "static";
-    this.#image.on("pointerdown", (e) => {
-      this.#onImageClick(e.client);
-    });
+    this.#image.on("pointerdown", (e) => this.#onImageClick(e.global));
     this.addChild(this.#image);
   }
 
@@ -25,13 +23,12 @@ class LayerView extends PIXI.Container {
 
   #showWrongClick(pos) {
     const ease = 0.1;
-    const targetX = 1;
-    const targetY = 1;
+    const targetX = 0.3;
+    const targetY = 0.3;
     const targetAlpha = 1;
     const { img, width: w, height: h } = this.#getWrongClickImage(pos);
-    console.log(img, w, h);
     this.addChild(img);
-    const loog = () => {
+    const animate = () => {
       const currentScale = img.scale.x;
       const dx = targetX - img.scale.x;
       const dy = targetY - img.scale.y;
@@ -48,10 +45,11 @@ class LayerView extends PIXI.Container {
         img.scale.x = targetX;
         img.scale.y = targetY;
         img.alpha = targetAlpha;
-        pixiApp.pixiGame.ticker.remove(loog);
+        img.destroy();
+        pixiApp.pixiGame.ticker.remove(animate);
       }
     };
-    pixiApp.pixiGame.ticker.add(loog);
+    pixiApp.pixiGame.ticker.add(animate);
   }
 
   #getWrongClickImage(pos) {

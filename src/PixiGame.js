@@ -3,20 +3,6 @@ import GlobalEmitter from "./GlobalEmitter.js";
 import { fitDimension } from "./Utils.js";
 import MainView from "./views/MainView.js";
 
-const ScreenSizeConfig = Object.freeze({
-  size: {
-    app: {
-      landscape: { width: 960, height: 640 },
-      portrait: { width: 640, height: 960 },
-    },
-    game: {
-      landscape: { width: 960, height: 640 },
-      portrait: { width: 640, height: 960 },
-    },
-    ratio: { min: 0.1, max: 1 },
-  },
-});
-
 class PixiGame extends PIXI.Application {
   #mainView;
   constructor() {
@@ -40,9 +26,9 @@ class PixiGame extends PIXI.Application {
     this.onLoadComplete();
   }
 
-  onResize(size) {
-    const { min, max } = ScreenSizeConfig.size.ratio;
-    const { width, height } = fitDimension(size, min, max);
+  onResize() {
+    const { width, height } = fitDimension();
+
     this.resizeCanvas(width, height);
     this.resizeRenderer(width, height);
 
@@ -77,6 +63,7 @@ class PixiGame extends PIXI.Application {
   }
 
   onLoadComplete() {
+    this.onResize();
     GlobalEmitter.mapCommands();
     this.#mainView = new MainView();
     this.stage.addChild(this.#mainView);
