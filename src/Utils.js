@@ -10,6 +10,12 @@ export const getGameBounds = () => {
   return new PIXI.Rectangle(0, 0, w, h);
 };
 
+export const getCanvasBounds = () => {
+  const canvas = document.getElementsByClassName("app")[0];
+  const { width: w, height: h } = canvas;
+  return new PIXI.Rectangle(0, 0, w, h);
+};
+
 export const fitDimension = () => {
   const aspect = 16 / 9;
   let { innerWidth: w, innerHeight: h } = window;

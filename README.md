@@ -2,6 +2,7 @@ TODO
 
 - move rects to another layer // add stage
 - visual effects for wrong click
+  // - new event system
 - next level
 - fetch data for next level
 - counters

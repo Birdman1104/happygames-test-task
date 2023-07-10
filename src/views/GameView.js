@@ -1,4 +1,5 @@
 import GlobalEmitter from "../GlobalEmitter.js";
+import { getCanvasBounds } from "../Utils.js";
 import { LEVEL_TYPE } from "../configs/Const.js";
 import { GameModelEvents } from "../models/GameModel.js";
 import LevelView from "./LevelView.js";
@@ -30,9 +31,10 @@ class GameView extends PIXI.Container {
   showGame() {
     this.#imageSlots = new LevelView(this.#levelConfig, LEVEL_TYPE.slots);
     this.addChild(this.#imageSlots);
-    this.#imageOriginal = new LevelView(this.#levelConfig, LEVEL_TYPE.original);
-    this.#imageOriginal.y = 300;
-    this.addChild(this.#imageOriginal);
+    console.warn(getCanvasBounds());
+    // this.#imageOriginal = new LevelView(this.#levelConfig, LEVEL_TYPE.original);
+    // this.#imageOriginal.y = 300;
+    // this.addChild(this.#imageOriginal);
   }
 }
 
