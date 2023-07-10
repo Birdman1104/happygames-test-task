@@ -114,11 +114,11 @@ export const postRunnable = (runnable, context = null, ...args) => {
   return delayRunnable(pixiApp.pixiGame.ticker.deltaMS / 1000, runnable, context, ...args);
 };
 
-export const getGr = (color = 0x919191, alpha = 1) => {
+export const getGr = (width = 10, height = 10, color = 0x919191, alpha = 1) => {
   const gr = new PIXI.Graphics();
-  gr.interactive = true;
+  gr.eventMode = "static";
   gr.beginFill(color, alpha);
-  gr.drawRect(0, 0, 10, 10);
+  gr.drawRect(0, 0, width, height);
   gr.endFill();
   return gr;
 };
