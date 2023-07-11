@@ -1,5 +1,3 @@
-import pixiApp from "./PixiApp.js";
-
 export const lp = (l, p) => {
   const { clientWidth: w, clientHeight: h } = document.body;
   return w > h ? l : p;
@@ -58,7 +56,7 @@ export const makeSprite = (config) => {
 };
 
 export const getDisplayObjectByProperty = (property, value, parent = null) => {
-  const { children } = parent || pixiApp.pixiGame.stage;
+  const { children } = parent || window.game.stage;
 
   if (!children || children.length === 0) {
     return null;
@@ -83,35 +81,35 @@ export const getDisplayObjectByProperty = (property, value, parent = null) => {
 export const delayRunnable = (delay, runnable, context, ...args) => {
   let delayMS = delay * 1000;
   const delayWrapper = () => {
-    delayMS -= pixiApp.pixiGame.ticker.deltaMS;
+    delayMS -= window.game.ticker.deltaMS;
     if (delayMS <= 0) {
       runnable.call(context, ...args);
-      pixiApp.pixiGame.ticker.remove(delayWrapper);
+      window.game.ticker.remove(delayWrapper);
     }
   };
-  pixiApp.pixiGame.ticker.add(delayWrapper);
+  window.game.ticker.add(delayWrapper);
   return delayWrapper;
 };
 
 export const removeRunnable = (runnable) => {
-  pixiApp.pixiGame.ticker.remove(runnable);
+  window.game.ticker.remove(runnable);
 };
 
 export const loopRunnable = (delay, runnable, context, ...args) => {
   let delayMS = delay * 1000;
   const delayWrapper = () => {
-    delayMS -= pixiApp.pixiGame.ticker.deltaMS;
+    delayMS -= window.game.ticker.deltaMS;
     if (delayMS <= 0) {
       runnable.call(context, ...args);
       delayMS = delay * 1000;
     }
   };
-  pixiApp.pixiGame.ticker.add(delayWrapper);
+  window.game.ticker.add(delayWrapper);
   return delayWrapper;
 };
 
 export const postRunnable = (runnable, context = null, ...args) => {
-  return delayRunnable(pixiApp.pixiGame.ticker.deltaMS / 1000, runnable, context, ...args);
+  return delayRunnable(window.game.ticker.deltaMS / 1000, runnable, context, ...args);
 };
 
 export const getGr = (width = 10, height = 10, color = 0x919191, alpha = 1) => {

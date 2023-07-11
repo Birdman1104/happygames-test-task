@@ -1,6 +1,5 @@
 import { getGameViewGridConfig } from "../grid-config/GameViewGridConfig.js";
 import { Grid } from "../grid/grid.js";
-import BoardView from "./BoardView.js";
 
 class GameView extends Grid {
   #boardView;
@@ -23,12 +22,12 @@ class GameView extends Grid {
   }
 
   #build() {
-    this.#boardView = new BoardView();
-    this.addChild(this.#boardView);
+    // this.#boardView = new BoardView();
+    // this.addChild(this.#boardView);
   }
 
   showGame() {
-    this.#boardView.showGame();
+    // this.#boardView.showGame();
   }
 }
 

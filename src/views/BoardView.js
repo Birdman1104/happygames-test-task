@@ -12,7 +12,11 @@ class BoardView extends PIXI.Container {
     super();
     this.#build();
 
-    lego.event.on(GameModelEvents.LevelModelUpdate, this.#onLevelModelUpdate, this);
+    lego.event.on(
+      GameModelEvents.LevelModelUpdate,
+      this.#onLevelModelUpdate,
+      this
+    );
   }
 
   resize() {
@@ -29,12 +33,12 @@ class BoardView extends PIXI.Container {
 
   showGame() {
     this.#imageSlots = new LevelView(this.#levelConfig, LEVEL_TYPE.slots);
-    this.#imageSlots.scale = new PIXI.Point(0.5, 0.5);
+    // this.#imageSlots.scale = new PIXI.Point(0.5, 0.5);
     this.addChild(this.#imageSlots);
 
     this.#imageOriginal = new LevelView(this.#levelConfig, LEVEL_TYPE.original);
     this.#imageOriginal.y = this.#imageSlots.height;
-    this.#imageOriginal.scale = new PIXI.Point(0.5, 0.5);
+    // this.#imageOriginal.scale = new PIXI.Point(0.5, 0.5);
     this.addChild(this.#imageOriginal);
   }
 }

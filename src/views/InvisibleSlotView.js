@@ -1,4 +1,3 @@
-import pixiApp from "../PixiApp.js";
 import { getGr } from "../Utils.js";
 import { ViewEvents } from "../configs/events.js";
 import { lego } from "../lego/index.js";
@@ -81,10 +80,10 @@ class InvisibleSlot extends PIXI.Container {
         this.#frame.scale.x = targetX;
         this.#frame.scale.y = targetY;
         this.#frame.alpha = targetAlpha;
-        pixiApp.pixiGame.ticker.remove(animate);
+        window.game.ticker.remove(animate);
       }
     };
-    pixiApp.pixiGame.ticker.add(animate);
+    window.game.ticker.add(animate);
   }
 }
 

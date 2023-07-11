@@ -1,5 +1,3 @@
-import pixiApp from "../PixiApp.js";
-
 const SCALE = 0.1;
 class SlotView extends PIXI.Container {
   #image;
@@ -66,10 +64,10 @@ class SlotView extends PIXI.Container {
         this.#frame.scale.x = targetX;
         this.#frame.scale.y = targetY;
         this.#frame.alpha = targetAlpha;
-        pixiApp.pixiGame.ticker.remove(animate);
+        window.game.ticker.remove(animate);
       }
     };
-    pixiApp.pixiGame.ticker.add(animate);
+    window.game.ticker.add(animate);
   }
 }
 

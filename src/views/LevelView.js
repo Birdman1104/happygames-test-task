@@ -41,7 +41,7 @@ class LevelView extends PIXI.Container {
   #buildLayerWithSlots() {
     const image = new LayerView(this.#layerConfig, this.#slotsConfig);
     image.cacheAsBitmap = true;
-    this.#layer = new PIXI.Sprite(pixiApp.pixiGame.renderer.generateTexture(image));
+    this.#layer = new PIXI.Sprite(window.game.renderer.generateTexture(image));
     image.destroy();
   }
 
@@ -91,10 +91,10 @@ class LevelView extends PIXI.Container {
         image.scale.y = targetY;
         image.alpha = targetAlpha;
         image.destroy();
-        pixiApp.pixiGame.ticker.remove(animate);
+        window.game.ticker.remove(animate);
       }
     };
-    pixiApp.pixiGame.ticker.add(animate);
+    window.game.ticker.add(animate);
   }
 
   #getWrongClickImage(pos) {

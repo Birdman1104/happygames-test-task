@@ -1,11 +1,11 @@
-import pixiApp from "./PixiApp.js";
+import { App } from "./App.js";
 
-window.pixiApp = pixiApp;
-window.addEventListener("load", () => {
-  pixiApp.init();
+window.addEventListener("load", async () => {
+  window.game = new App();
+  await window.game.init();
+
+  window.addEventListener("resize", () => window.game.onResize());
+  window.addEventListener("orientationchange", () => window.game.onResize());
+  window.addEventListener("focus", () => window.game.onFocusChange(true));
+  window.addEventListener("blur", () => window.game.onFocusChange(false));
 });
-
-window.addEventListener("resize", () => pixiApp.onResize());
-window.addEventListener("orientationchange", () => pixiApp.onResize());
-window.addEventListener("focus", () => pixiApp.onFocusChange(true));
-window.addEventListener("blur", () => pixiApp.onFocusChange(false));
