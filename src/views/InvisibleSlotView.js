@@ -36,7 +36,10 @@ class InvisibleSlot extends PIXI.Container {
     const { width: w, height: h } = this.#config;
     this.#image = getGr(w, h, 0xff0000, 1);
     this.#image.eventMode = "dynamic";
-    this.#image.on("pointerdown", () => lego.event.emit(ViewEvents.SlotClick, this.#uuid));
+    this.#image.on("pointerdown", () => {
+      if (this.#isFrameShown) return;
+      lego.event.emit(ViewEvents.SlotClick, this.#uuid);
+    });
     this.#image.alpha = 0;
     this.addChild(this.#image);
   }

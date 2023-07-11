@@ -8,6 +8,8 @@ export const LevelModelEvents = {
   LayerUpdate: "LevelModelLayerUpdate",
   ImagesToLoadUpdate: "LevelModelImagesToLoadUpdate",
   IsLandscapeUpdate: "LevelModelIsLandscapeUpdate",
+  OpenedCountUpdate: "LevelModelOpenedSlotsCountUpdate",
+  NotOpenedCountUpdate: "LevelModelTotalSlotsUpdate",
 };
 
 export class LevelModel extends ObservableModel {
@@ -17,6 +19,8 @@ export class LevelModel extends ObservableModel {
   _data; // all the fetched data
   _imagesToLoad; // links to all the images that must be loaded
   _isLandscape = false;
+  _openedSlotsCount = -1;
+  _totalSlots = -1;
 
   constructor(levelNumber) {
     super("LevelModel");
@@ -57,17 +61,40 @@ export class LevelModel extends ObservableModel {
     this._imagesToLoad = value;
   }
 
+  get openedSlotsCount() {
+    return this._openedSlotsCount;
+  }
+
+  set openedSlotsCount(value) {
+    this._openedSlotsCount = value;
+  }
+
+  get totalSlots() {
+    return this._totalSlots;
+  }
+
+  set totalSlots(value) {
+    this._totalSlots = value;
+  }
+
   async init() {
     await this.#fetchSlotsData();
     this.#initSlotsAndLayer();
+    this._totalSlots = this.slots.length;
     this.#getImagesData();
+
+    this.updateCounts();
+  }
+
+  updateCounts() {
+    this._openedSlotsCount = this.slots.filter((s) => s.isOpened).length;
   }
 
   getSlotByUuid(uuid) {
     return this.slots.find((s) => s.uuid === uuid);
   }
 
-  slotClick(uuid) {
+  openSlot(uuid) {
     const slot = this.getSlotByUuid(uuid);
     slot.isOpened = true;
   }

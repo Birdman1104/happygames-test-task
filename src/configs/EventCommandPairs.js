@@ -1,5 +1,6 @@
 import { lego } from "../lego/index.js";
 import { Head } from "../models/HeadModel.js";
+import { SlotModelEvents } from "../models/SlotModel.js";
 import { GlobalEvents, ViewEvents } from "./events.js";
 
 export const mapCommands = () => {
@@ -18,8 +19,19 @@ export const onMainViewReadyCommand = () => {
   Head.initialize();
 };
 
+export const openSlotCommand = (uuid) => {
+  Head.gameModel.levelModel.openSlot(uuid);
+};
+
+export const updateCountsCommand = () => {
+  Head.gameModel.levelModel.updateCounts();
+};
+
 export const onSlotClickCommand = (uuid) => {
-  Head.gameModel.levelModel.slotClick(uuid);
+  lego.command
+    //
+    .payload(uuid)
+    .execute(openSlotCommand);
 };
 
 export const eventCommandPairs = [
@@ -30,5 +42,9 @@ export const eventCommandPairs = [
   {
     event: ViewEvents.SlotClick,
     command: onSlotClickCommand,
+  },
+  {
+    event: SlotModelEvents.OpenUpdate,
+    command: updateCountsCommand,
   },
 ];

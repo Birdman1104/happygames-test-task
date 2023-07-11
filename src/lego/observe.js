@@ -16,7 +16,6 @@ export class Observe {
     }
 
     for (const prop of props) {
-      console.log(prop);
       const value = obj[prop];
       if (delete obj[prop]) {
         this.createObservable(obj, prop, value);
@@ -44,7 +43,6 @@ export class Observe {
 
   createObservable(obj, prop, value) {
     const eventName = `${obj.__name__}${adjustEventName(prop)}Update`;
-    console.log(obj);
     let oldValue = value;
     let newValue = oldValue;
 
