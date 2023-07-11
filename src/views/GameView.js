@@ -25,11 +25,11 @@ class GameView extends Grid {
 
   showGame() {
     this.#imageSlots = new LevelView(this.#levelConfig, LEVEL_TYPE.slots);
-    this.attach("cell1", this.#imageSlots);
+    this.attach("cell1_l", this.#imageSlots);
 
     this.#imageOriginal = new LevelView(this.#levelConfig, LEVEL_TYPE.original);
     this.#imageOriginal.y = this.#imageSlots.height;
-    this.attach("cell2", this.#imageOriginal);
+    this.attach("cell2_l", this.#imageOriginal);
   }
 
   #onLevelModelUpdate(newLevel) {

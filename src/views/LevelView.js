@@ -1,7 +1,8 @@
 import { LEVEL_TYPE } from "../configs/Const.js";
+import { ViewEvents } from "../configs/Events.js";
 import { lego } from "../lego/index.js";
 import { SlotModelEvents } from "../models/SlotModel.js";
-import ImageWithSlots from "./ImageWithSlots.js";
+import ImageGenerator from "./ImageGenerator.js";
 import InvisibleSlot from "./InvisibleSlotView.js";
 
 const SCALE = 0.2;
@@ -40,7 +41,7 @@ class LevelView extends PIXI.Container {
   }
 
   #buildImageWithSlots() {
-    const image = new ImageWithSlots(this.#imageConfig, this.#slotsConfig);
+    const image = new ImageGenerator(this.#imageConfig, this.#slotsConfig);
     image.cacheAsBitmap = true;
     this.#image = new PIXI.Sprite(window.game.renderer.generateTexture(image));
     image.destroy();
@@ -48,6 +49,7 @@ class LevelView extends PIXI.Container {
 
   #onImageClick({ x, y }) {
     const localPos = this.toLocal({ x, y });
+    lego.event.emit(ViewEvents.WrongClick);
     this.#showWrongClick(localPos);
   }
 

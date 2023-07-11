@@ -1,4 +1,4 @@
-class ImageWithSlots extends PIXI.Container {
+class ImageGenerator extends PIXI.Container {
   constructor(imageConfig, slotsConfig) {
     super();
 
@@ -15,4 +15,4 @@ class ImageWithSlots extends PIXI.Container {
   }
 }
 
-export default ImageWithSlots;
+export default ImageGenerator;

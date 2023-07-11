@@ -1,5 +1,5 @@
 import { mapCommands } from "./configs/EventCommandPairs.js";
-import { GlobalEvents } from "./configs/events.js";
+import { GlobalEvents } from "./configs/Events.js";
 import { lego } from "./lego/index.js";
 import PixiStage from "./MainStage.js";
 import { fitDimension } from "./Utils.js";

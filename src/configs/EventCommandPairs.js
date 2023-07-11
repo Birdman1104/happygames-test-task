@@ -1,7 +1,7 @@
 import { lego } from "../lego/index.js";
 import { Head } from "../models/HeadModel.js";
 import { SlotModelEvents } from "../models/SlotModel.js";
-import { GlobalEvents, ViewEvents } from "./events.js";
+import { GlobalEvents, ViewEvents } from "./Events.js";
 
 export const mapCommands = () => {
   eventCommandPairs.forEach(({ event, command }) => {
@@ -27,6 +27,10 @@ export const updateCountsCommand = () => {
   Head.gameModel.levelModel.updateCounts();
 };
 
+export const updateWrongClickCountsCommand = () => {
+  Head.gameModel.levelModel.increaseWrongClick();
+};
+
 export const onSlotClickCommand = (uuid) => {
   lego.command
     //
@@ -46,5 +50,9 @@ export const eventCommandPairs = [
   {
     event: SlotModelEvents.OpenUpdate,
     command: updateCountsCommand,
+  },
+  {
+    event: ViewEvents.WrongClick,
+    command: updateWrongClickCountsCommand,
   },
 ];

@@ -1,5 +1,5 @@
 import { getGr } from "../Utils.js";
-import { ViewEvents } from "../configs/events.js";
+import { ViewEvents } from "../configs/Events.js";
 import { lego } from "../lego/index.js";
 
 const SCALE = 0.1;

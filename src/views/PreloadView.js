@@ -1,5 +1,5 @@
 import { getGameBounds, makeSprite } from "../Utils.js";
-import { ViewEvents } from "../configs/events.js";
+import { ViewEvents } from "../configs/Events.js";
 import { lego } from "../lego/index.js";
 import { LevelModelEvents } from "../models/LevelModel.js";
 

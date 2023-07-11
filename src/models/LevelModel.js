@@ -3,6 +3,7 @@ import { ObservableModel } from "./ObservableModel.js";
 import { SlotModel } from "./SlotModel.js";
 
 export const LevelModelEvents = {
+  WrongClicksUpdate: "LevelModelWrongClicksUpdate",
   SlotsUpdate: "LevelModelSlotsUpdate",
   DataUpdate: "LevelModelDataUpdate",
   LayerUpdate: "LevelModelLayerUpdate",
@@ -21,6 +22,7 @@ export class LevelModel extends ObservableModel {
   _isLandscape = false;
   _openedSlotsCount = -1;
   _totalSlots = -1;
+  _wrongClicks = 0;
 
   constructor(levelNumber) {
     super("LevelModel");
@@ -76,6 +78,13 @@ export class LevelModel extends ObservableModel {
   set totalSlots(value) {
     this._totalSlots = value;
   }
+  get wrongClicks() {
+    return this._wrongClicks;
+  }
+
+  set wrongClicks(value) {
+    this._wrongClicks = value;
+  }
 
   async init() {
     await this.#fetchSlotsData();
@@ -97,6 +106,10 @@ export class LevelModel extends ObservableModel {
   openSlot(uuid) {
     const slot = this.getSlotByUuid(uuid);
     slot.isOpened = true;
+  }
+
+  increaseWrongClick() {
+    this.wrongClicks += 1;
   }
 
   #initSlotsAndLayer() {
