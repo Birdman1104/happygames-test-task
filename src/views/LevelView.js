@@ -42,6 +42,7 @@ class LevelView extends PIXI.Container {
     const image = new LayerView(this.#layerConfig, this.#slotsConfig);
     image.cacheAsBitmap = true;
     this.#layer = new PIXI.Sprite(pixiApp.pixiGame.renderer.generateTexture(image));
+    image.destroy();
   }
 
   #onLayerClick({ x, y }) {

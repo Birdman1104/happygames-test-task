@@ -1,18 +1,21 @@
-import { LEVEL_TYPE } from "../configs/Const.js";
-import { lego } from "../lego/index.js";
-import { GameModelEvents } from "../models/GameModel.js";
-import LevelView from "./LevelView.js";
+import { getGameViewGridConfig } from "../grid-config/GameViewGridConfig.js";
+import { Grid } from "../grid/grid.js";
+import BoardView from "./BoardView.js";
 
-class GameView extends PIXI.Container {
-  #imageSlots;
-  #imageOriginal;
-  #levelConfig;
+class GameView extends Grid {
+  #boardView;
 
   constructor() {
     super();
     this.#build();
+  }
 
-    lego.event.on(GameModelEvents.LevelModelUpdate, this.#onLevelModelUpdate, this);
+  getGridConfig() {
+    return getGameViewGridConfig();
+  }
+
+  rebuild() {
+    super.rebuild(this.getGridConfig());
   }
 
   resize() {
@@ -20,22 +23,12 @@ class GameView extends PIXI.Container {
   }
 
   #build() {
-    //
-  }
-
-  #onLevelModelUpdate(newLevel) {
-    this.#levelConfig = newLevel;
+    this.#boardView = new BoardView();
+    this.addChild(this.#boardView);
   }
 
   showGame() {
-    this.#imageSlots = new LevelView(this.#levelConfig, LEVEL_TYPE.slots);
-    this.#imageSlots.scale = new PIXI.Point(0.5, 0.5);
-    this.addChild(this.#imageSlots);
-
-    this.#imageOriginal = new LevelView(this.#levelConfig, LEVEL_TYPE.original);
-    this.#imageOriginal.y = this.#imageSlots.height;
-    this.#imageOriginal.scale = new PIXI.Point(0.5, 0.5);
-    this.addChild(this.#imageOriginal);
+    this.#boardView.showGame();
   }
 }
 
