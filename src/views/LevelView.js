@@ -1,20 +1,20 @@
 import { LEVEL_TYPE } from "../configs/Const.js";
 import { lego } from "../lego/index.js";
 import { SlotModelEvents } from "../models/SlotModel.js";
+import ImageWithSlots from "./ImageWithSlots.js";
 import InvisibleSlot from "./InvisibleSlotView.js";
-import LayerView from "./LayerView.js";
 
 const SCALE = 0.2;
 
 class LevelView extends PIXI.Container {
-  #layerConfig;
+  #imageConfig;
   #slotsConfig;
-  #layer;
+  #image;
   #slots;
   #type;
   constructor(config, type) {
     super();
-    this.#layerConfig = config.layer;
+    this.#imageConfig = config.layer;
     this.#type = type;
     this.#slotsConfig = config.slots;
     this.#build();
@@ -27,25 +27,26 @@ class LevelView extends PIXI.Container {
   }
 
   #buildLayer() {
-    this.#type === LEVEL_TYPE.original ? this.#buildOriginalLayer() : this.#buildLayerWithSlots();
+    this.#type === LEVEL_TYPE.original ? this.#buildOriginalImage() : this.#buildImageWithSlots();
 
-    this.#layer.eventMode = "static";
-    this.#layer.on("pointerdown", (e) => this.#onLayerClick(e.global, e));
-    this.addChild(this.#layer);
+    this.#image.eventMode = "static";
+    this.#image.on("pointerdown", (e) => this.#onImageClick(e.global, e));
+    this.addChild(this.#image);
   }
 
-  #buildOriginalLayer() {
-    this.#layer = new LayerView(this.#layerConfig, []);
+  #buildOriginalImage() {
+    const { texture } = this.#imageConfig;
+    this.#image = PIXI.Sprite.from(texture);
   }
 
-  #buildLayerWithSlots() {
-    const image = new LayerView(this.#layerConfig, this.#slotsConfig);
+  #buildImageWithSlots() {
+    const image = new ImageWithSlots(this.#imageConfig, this.#slotsConfig);
     image.cacheAsBitmap = true;
-    this.#layer = new PIXI.Sprite(window.game.renderer.generateTexture(image));
+    this.#image = new PIXI.Sprite(window.game.renderer.generateTexture(image));
     image.destroy();
   }
 
-  #onLayerClick({ x, y }) {
+  #onImageClick({ x, y }) {
     const localPos = this.toLocal({ x, y });
     this.#showWrongClick(localPos);
   }
@@ -103,7 +104,7 @@ class LevelView extends PIXI.Container {
     image.alpha = 0;
     image.scale.x = SCALE;
     image.scale.y = SCALE;
-    image.x = pos.x - (w / 2) * SCALE * this.#layer.scale.x;
+    image.x = pos.x - (w / 2) * SCALE * this.#image.scale.x;
     image.y = pos.y - h / 2;
     return { image, width: w, height: h };
   }
