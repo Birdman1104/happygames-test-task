@@ -7,9 +7,11 @@ class InvisibleSlot extends PIXI.Container {
   #config;
   #frame; // Nine Slice
   #isFrameShown = false;
+  #uuid;
   constructor(config) {
     super();
     this.#config = config;
+    this.#uuid = config.uuid;
     this.#build();
   }
 

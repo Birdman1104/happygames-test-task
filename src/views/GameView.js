@@ -1,5 +1,5 @@
-import GlobalEmitter from "../GlobalEmitter.js";
 import { LEVEL_TYPE } from "../configs/Const.js";
+import { lego } from "../lego/index.js";
 import { GameModelEvents } from "../models/GameModel.js";
 import LevelView from "./LevelView.js";
 
@@ -12,7 +12,7 @@ class GameView extends PIXI.Container {
     super();
     this.#build();
 
-    GlobalEmitter.on(GameModelEvents.LevelUpdate, this.#onLevelUpdate, this);
+    lego.event.on(GameModelEvents.LevelUpdate, this.#onLevelUpdate, this);
   }
 
   resize() {
@@ -29,10 +29,13 @@ class GameView extends PIXI.Container {
 
   showGame() {
     this.#imageSlots = new LevelView(this.#levelConfig, LEVEL_TYPE.slots);
+    this.#imageSlots.scale = new PIXI.Point(0.5, 0.5);
     this.addChild(this.#imageSlots);
-    // this.#imageOriginal = new LevelView(this.#levelConfig, LEVEL_TYPE.original);
-    // this.#imageOriginal.y = 300;
-    // this.addChild(this.#imageOriginal);
+
+    this.#imageOriginal = new LevelView(this.#levelConfig, LEVEL_TYPE.original);
+    this.#imageOriginal.y = this.#imageSlots.height;
+    this.#imageOriginal.scale = new PIXI.Point(0.5, 0.5);
+    this.addChild(this.#imageOriginal);
   }
 }
 

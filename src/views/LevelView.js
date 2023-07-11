@@ -14,7 +14,7 @@ class LevelView extends PIXI.Container {
     super();
     this.#layerConfig = config.layer;
     this.#type = type;
-    this.#slotsConfig = this.#type === LEVEL_TYPE.slots ? config.slots : [];
+    this.#slotsConfig = config.slots;
     this.#build();
   }
 
@@ -24,18 +24,26 @@ class LevelView extends PIXI.Container {
   }
 
   #buildLayer() {
+    this.#type === LEVEL_TYPE.original ? this.#buildOriginalLayer() : this.#buildLayerWithSlots();
+
+    this.#layer.eventMode = "static";
+    this.#layer.on("pointerdown", (e) => this.#onLayerClick(e.global, e));
+    this.addChild(this.#layer);
+  }
+
+  #buildOriginalLayer() {
+    this.#layer = new LayerView(this.#layerConfig, []);
+  }
+
+  #buildLayerWithSlots() {
     const image = new LayerView(this.#layerConfig, this.#slotsConfig);
     image.cacheAsBitmap = true;
     this.#layer = new PIXI.Sprite(pixiApp.pixiGame.renderer.generateTexture(image));
-    this.addChild(this.#layer);
-
-    this.#layer.eventMode = "static";
-    this.#layer.on("pointerdown", (e) => this.#onLayerClick(e.global));
   }
 
   #onLayerClick({ x, y }) {
-    const mousePos = { x, y };
-    this.#showWrongClick(mousePos);
+    const localPos = this.toLocal({ x, y });
+    this.#showWrongClick(localPos);
   }
 
   #buildSlots() {
@@ -85,8 +93,8 @@ class LevelView extends PIXI.Container {
     image.alpha = 0;
     image.scale.x = SCALE;
     image.scale.y = SCALE;
-    image.x = pos.x - (w / 2) * SCALE;
-    image.y = pos.y - (h / 2) * SCALE;
+    image.x = pos.x - (w / 2) * SCALE * this.#layer.scale.x;
+    image.y = pos.y - h / 2;
     return { image, width: w, height: h };
   }
 }

@@ -1,6 +1,6 @@
-import GlobalEmitter from "../GlobalEmitter.js";
 import { getGameBounds, makeSprite } from "../Utils.js";
 import { ViewEvents } from "../configs/events.js";
+import { lego } from "../lego/index.js";
 import { LevelModelEvents } from "../models/LevelModel.js";
 
 class PreloadView extends PIXI.Container {
@@ -9,7 +9,7 @@ class PreloadView extends PIXI.Container {
     super();
     this.#build();
 
-    GlobalEmitter.once(LevelModelEvents.ImagesToLoadUpdate, this.#imagesToLoadUpdate, this);
+    lego.event.once(LevelModelEvents.ImagesToLoadUpdate, this.#imagesToLoadUpdate, this);
   }
 
   #build() {
@@ -25,7 +25,6 @@ class PreloadView extends PIXI.Container {
   async #imagesToLoadUpdate(imagesToLoad) {
     await this.#loadImages(imagesToLoad);
 
-    console.warn("load complete");
     this.#playButton.alpha = 1;
     this.emit(ViewEvents.PlayButtonClick);
     // this.#playButton.on("pointerdown", () => this.emit(ViewEvents.PlayButtonClick));

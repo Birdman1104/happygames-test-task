@@ -1,29 +1,28 @@
 import { GameModel } from "./GameModel.js";
-import ObservableModel from "./ObservableModel.js";
+import { ObservableModel } from "./ObservableModel.js";
 
 export const HeadModelEvents = {
-  GameModelUpdate: "gameModelUpdate",
+  GameModelUpdate: "HeadModelGameModelUpdate",
 };
 class HeadModel extends ObservableModel {
-  #gameModel;
+  _gameModel;
 
   constructor() {
     super("HeadModel");
+    this.makeObservable();
   }
 
   get gameModel() {
-    return this.#gameModel;
+    return this._gameModel;
   }
 
   set gameModel(value) {
-    if (value === this.#gameModel) return;
-    GlobalEmitter.emit(HeadModelEvents.GameModelUpdate, value, this.#gameModel, this.uuid);
-    this.#gameModel = value;
+    this._gameModel = value;
   }
 
   initialize() {
-    this.#gameModel = new GameModel();
-    this.#gameModel.initialize();
+    this._gameModel = new GameModel();
+    this._gameModel.initialize();
   }
 }
 

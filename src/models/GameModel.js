@@ -1,31 +1,29 @@
-import GlobalEmitter from "../GlobalEmitter.js";
 import { LevelModel } from "./LevelModel.js";
-import ObservableModel from "./ObservableModel.js";
+import { ObservableModel } from "./ObservableModel.js";
 
 export const GameModelEvents = {
-  LevelUpdate: "levelUpdate",
+  LevelUpdate: "GameModelLevelUpdate",
 };
 
 export class GameModel extends ObservableModel {
-  #level; // number
+  _level = -1; // number
 
   constructor() {
     super("GameModel");
+    this.makeObservable();
   }
 
   get level() {
-    return this.#level;
+    return this._level;
   }
 
   set level(value) {
-    if (value === this.#level) return;
-    GlobalEmitter.emit(GameModelEvents.LevelUpdate, value, this.#level, this.uuid);
-    this.#level = value;
+    this._level = value;
   }
 
   async initialize() {
     const level = new LevelModel(1);
     await level.init();
-    this.level = level;
+    this._level = level;
   }
 }

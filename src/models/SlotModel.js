@@ -1,5 +1,8 @@
-import ObservableModel from "./ObservableModel.js";
+import { ObservableModel } from "./ObservableModel.js";
 
+export const SlotModelEvents = {
+  OpenUpdate: "OpenUpdate",
+};
 export class SlotModel extends ObservableModel {
   #sourceCenterX;
   #sourceCenterY;
@@ -14,6 +17,7 @@ export class SlotModel extends ObservableModel {
   #x;
   #y;
   #texture;
+  #isOpened = false;
 
   constructor(data, texture) {
     super("SlotModel");
@@ -45,6 +49,7 @@ export class SlotModel extends ObservableModel {
     this.#x = x;
     this.#y = y;
     this.#texture = texture;
+    this.makeObservable();
   }
 
   get sourceCenterX() {
@@ -86,5 +91,11 @@ export class SlotModel extends ObservableModel {
   }
   get texture() {
     return this.#texture;
+  }
+  get isOpened() {
+    return this.#isOpened;
+  }
+  set isOpened(value) {
+    this.#isOpened = value;
   }
 }

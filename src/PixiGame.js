@@ -1,5 +1,6 @@
+import { mapCommands } from "./configs/EventCommandPairs.js";
 import { GlobalEvents } from "./configs/events.js";
-import GlobalEmitter from "./GlobalEmitter.js";
+import { lego, legoLogger } from "./lego/index.js";
 import { fitDimension } from "./Utils.js";
 import MainView from "./views/MainView.js";
 
@@ -21,7 +22,7 @@ class PixiGame extends PIXI.Application {
   async init() {
     this.view.classList.add("app");
     document.body.appendChild(this.view);
-
+    legoLogger.start(lego, Object.freeze({}));
     await this.loadAssets();
     this.onLoadComplete();
   }
@@ -32,7 +33,7 @@ class PixiGame extends PIXI.Application {
     this.resizeCanvas(width, height);
     this.resizeRenderer(width, height);
 
-    GlobalEmitter.emit(GlobalEvents.Resize);
+    lego.event.emit(GlobalEvents.Resize);
   }
 
   async loadAssets() {
@@ -64,10 +65,10 @@ class PixiGame extends PIXI.Application {
 
   onLoadComplete() {
     this.onResize();
-    GlobalEmitter.mapCommands();
+    lego.command.execute(mapCommands);
     this.#mainView = new MainView();
     this.stage.addChild(this.#mainView);
-    GlobalEmitter.emit(GlobalEvents.MainViewReady);
+    lego.event.emit(GlobalEvents.MainViewReady);
   }
 
   resizeCanvas(width, height) {
