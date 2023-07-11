@@ -7,10 +7,13 @@ export const GameModelEvents = {
 };
 
 export class GameModel extends ObservableModel {
+  #level = 0;
   _levelModel; // number
+  _nextLevelModel; // number
 
   constructor() {
     super("GameModel");
+    this.#level = 1;
     this.makeObservable();
   }
 
@@ -31,8 +34,16 @@ export class GameModel extends ObservableModel {
   }
 
   async initialize() {
-    const level = new LevelModel(1);
+    const level = new LevelModel(this.#level);
     await level.init();
     this._levelModel = level;
+
+    this.#initNextLevel();
+  }
+
+  async #initNextLevel() {
+    const nextLevel = new LevelModel(this.#level + 1);
+    await nextLevel.init();
+    this._nextLevelModel = nextLevel;
   }
 }
