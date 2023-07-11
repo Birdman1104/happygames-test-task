@@ -2,11 +2,12 @@ import { LevelModel } from "./LevelModel.js";
 import { ObservableModel } from "./ObservableModel.js";
 
 export const GameModelEvents = {
-  LevelUpdate: "GameModelLevelUpdate",
+  LevelModelUpdate: "GameModelLevelModelUpdate",
+  LevelUpdate: "GameModelLevelModelUpdate",
 };
 
 export class GameModel extends ObservableModel {
-  _level = -1; // number
+  _levelModel; // number
 
   constructor() {
     super("GameModel");
@@ -21,9 +22,17 @@ export class GameModel extends ObservableModel {
     this._level = value;
   }
 
+  get levelModel() {
+    return this._levelModel;
+  }
+
+  set levelModel(value) {
+    this._levelModel = value;
+  }
+
   async initialize() {
     const level = new LevelModel(1);
     await level.init();
-    this._level = level;
+    this._levelModel = level;
   }
 }

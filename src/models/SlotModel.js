@@ -1,7 +1,7 @@
 import { ObservableModel } from "./ObservableModel.js";
 
 export const SlotModelEvents = {
-  OpenUpdate: "OpenUpdate",
+  OpenUpdate: "SlotModelIsOpenedUpdate",
 };
 export class SlotModel extends ObservableModel {
   #sourceCenterX;
@@ -17,7 +17,7 @@ export class SlotModel extends ObservableModel {
   #x;
   #y;
   #texture;
-  #isOpened = false;
+  _isOpened = false;
 
   constructor(data, texture) {
     super("SlotModel");
@@ -93,9 +93,9 @@ export class SlotModel extends ObservableModel {
     return this.#texture;
   }
   get isOpened() {
-    return this.#isOpened;
+    return this._isOpened;
   }
   set isOpened(value) {
-    this.#isOpened = value;
+    this._isOpened = value;
   }
 }

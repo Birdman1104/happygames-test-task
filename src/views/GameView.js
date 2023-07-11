@@ -12,7 +12,7 @@ class GameView extends PIXI.Container {
     super();
     this.#build();
 
-    lego.event.on(GameModelEvents.LevelUpdate, this.#onLevelUpdate, this);
+    lego.event.on(GameModelEvents.LevelModelUpdate, this.#onLevelModelUpdate, this);
   }
 
   resize() {
@@ -23,7 +23,7 @@ class GameView extends PIXI.Container {
     //
   }
 
-  #onLevelUpdate(newLevel) {
+  #onLevelModelUpdate(newLevel) {
     this.#levelConfig = newLevel;
   }
 

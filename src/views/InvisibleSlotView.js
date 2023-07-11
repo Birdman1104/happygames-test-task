@@ -1,5 +1,7 @@
 import pixiApp from "../PixiApp.js";
 import { getGr } from "../Utils.js";
+import { ViewEvents } from "../configs/events.js";
+import { lego } from "../lego/index.js";
 
 const SCALE = 0.1;
 class InvisibleSlot extends PIXI.Container {
@@ -15,6 +17,16 @@ class InvisibleSlot extends PIXI.Container {
     this.#build();
   }
 
+  get uuid() {
+    return this.#uuid;
+  }
+
+  showFrame() {
+    if (this.#isFrameShown) return;
+    this.#isFrameShown = true;
+    this.#tweenFrame();
+  }
+
   #build() {
     this.#buildImage();
     this.#buildFrame();
@@ -24,11 +36,7 @@ class InvisibleSlot extends PIXI.Container {
     const { width: w, height: h } = this.#config;
     this.#image = getGr(w, h, 0xff0000, 1);
     this.#image.eventMode = "dynamic";
-    this.#image.on("pointerdown", () => {
-      if (this.#isFrameShown) return;
-      this.#isFrameShown = true;
-      this.#tweenFrame();
-    });
+    this.#image.on("pointerdown", () => lego.event.emit(ViewEvents.SlotClick, this.#uuid));
     this.#image.alpha = 0;
     this.addChild(this.#image);
   }

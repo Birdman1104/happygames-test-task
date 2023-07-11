@@ -63,6 +63,15 @@ export class LevelModel extends ObservableModel {
     this.#getImagesData();
   }
 
+  getSlotByUuid(uuid) {
+    return this.slots.find((s) => s.uuid === uuid);
+  }
+
+  slotClick(uuid) {
+    const slot = this.getSlotByUuid(uuid);
+    slot.isOpened = true;
+  }
+
   #initSlotsAndLayer() {
     const tempArr = [];
     for (const d of this._data) {

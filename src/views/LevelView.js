@@ -1,4 +1,6 @@
 import { LEVEL_TYPE } from "../configs/Const.js";
+import { lego } from "../lego/index.js";
+import { SlotModelEvents } from "../models/SlotModel.js";
 import InvisibleSlot from "./InvisibleSlotView.js";
 import LayerView from "./LayerView.js";
 
@@ -16,6 +18,7 @@ class LevelView extends PIXI.Container {
     this.#type = type;
     this.#slotsConfig = config.slots;
     this.#build();
+    lego.event.on(SlotModelEvents.OpenUpdate, this.#onSlotOpenUpdate, this);
   }
 
   #build() {
@@ -54,6 +57,12 @@ class LevelView extends PIXI.Container {
       this.addChild(slot);
       return slot;
     });
+  }
+
+  #onSlotOpenUpdate(newValue, oldValue, uuid) {
+    if (!newValue) return;
+    const slot = this.#slots.find((s) => s.uuid === uuid);
+    slot.showFrame();
   }
 
   #showWrongClick(pos) {

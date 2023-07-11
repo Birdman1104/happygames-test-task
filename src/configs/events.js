@@ -5,4 +5,5 @@ export const GlobalEvents = {
 
 export const ViewEvents = {
   PlayButtonClick: "PlayButtonClick",
+  SlotClick: "SlotClick",
 };
