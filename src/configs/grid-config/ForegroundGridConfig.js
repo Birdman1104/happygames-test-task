@@ -1,4 +1,4 @@
-import { CellScale } from "../grid/types.js";
+import { CellScale } from "../../libs/grid/types.js";
 
 export const getForegroundViewGridConfig = () => {
   const { width: w, height: h } = window.game.renderer.screen;

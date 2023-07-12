@@ -1,5 +1,5 @@
 import { ViewEvents } from "../configs/Events.js";
-import { lego } from "../lego/index.js";
+import { lego } from "../libs/lego/index.js";
 
 class PopupView extends PIXI.Container {
   #bkg;

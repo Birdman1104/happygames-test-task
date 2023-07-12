@@ -1,7 +1,7 @@
 import { getGr } from "../Utils.js";
-import { getForegroundViewGridConfig } from "../grid-config/ForegroundGridConfig.js";
-import { Grid } from "../grid/grid.js";
-import { lego } from "../lego/index.js";
+import { getForegroundViewGridConfig } from "../configs/grid-config/ForegroundGridConfig.js";
+import { Grid } from "../libs/grid/grid.js";
+import { lego } from "../libs/lego/index.js";
 import { GameModelEvents } from "../models/GameModel.js";
 import { LevelModelEvents } from "../models/LevelModel.js";
 import PopupView from "./PopupView.js";

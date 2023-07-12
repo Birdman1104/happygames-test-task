@@ -1,4 +1,4 @@
-import { lp } from "../Utils.js";
+import { lp } from "../../Utils.js";
 
 export const getGameViewGridConfig = () => {
   return lp(getGameViewGridLandscapeConfig, getGameViewGridPortraitConfig).call(null);

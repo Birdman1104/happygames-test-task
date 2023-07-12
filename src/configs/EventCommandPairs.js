@@ -1,4 +1,4 @@
-import { lego } from "../lego/index.js";
+import { lego } from "../libs/lego/index.js";
 import { Head } from "../models/HeadModel.js";
 import { SlotModelEvents } from "../models/SlotModel.js";
 import { GlobalEvents, ViewEvents } from "./Events.js";

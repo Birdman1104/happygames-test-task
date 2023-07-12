@@ -1,6 +1,6 @@
 import { LEVEL_TYPE as LAYER_TYPE } from "../configs/Const.js";
 import { ViewEvents } from "../configs/Events.js";
-import { lego } from "../lego/index.js";
+import { lego } from "../libs/lego/index.js";
 import { SlotModelEvents } from "../models/SlotModel.js";
 import ImageGenerator from "./ImageGenerator.js";
 import InvisibleSlot from "./InvisibleSlotView.js";

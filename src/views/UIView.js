@@ -1,6 +1,6 @@
-import { getUIViewGridConfig } from "../grid-config/UIViewGridConfig.js";
-import { Grid } from "../grid/grid.js";
-import { lego } from "../lego/index.js";
+import { getUIViewGridConfig } from "../configs/grid-config/UIViewGridConfig.js";
+import { Grid } from "../libs/grid/grid.js";
+import { lego } from "../libs/lego/index.js";
 import { GameModelEvents } from "../models/GameModel.js";
 import RightCounter from "./RightCounter.js";
 import WrongClickCounter from "./WrongClicksCounter.js";

@@ -1,7 +1,7 @@
 import { LEVEL_TYPE } from "../configs/Const.js";
-import { getGameViewGridConfig } from "../grid-config/GameViewGridConfig.js";
-import { Grid } from "../grid/grid.js";
-import { lego } from "../lego/index.js";
+import { getGameViewGridConfig } from "../configs/grid-config/GameViewGridConfig.js";
+import { Grid } from "../libs/grid/grid.js";
+import { lego } from "../libs/lego/index.js";
 import { GameModelEvents } from "../models/GameModel.js";
 import LayerView from "./LayerView.js";
 

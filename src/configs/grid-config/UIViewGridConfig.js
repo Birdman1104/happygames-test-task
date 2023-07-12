@@ -1,4 +1,4 @@
-import { CellAlign } from "../grid/types.js";
+import { CellAlign } from "../../libs/grid/types.js";
 
 export const getUIViewGridConfig = () => {
   const { width: w, height: h } = window.game.renderer.screen;

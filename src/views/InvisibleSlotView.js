@@ -1,6 +1,6 @@
 import { getGr } from "../Utils.js";
 import { ViewEvents } from "../configs/Events.js";
-import { lego } from "../lego/index.js";
+import { lego } from "../libs/lego/index.js";
 
 const SCALE = 0.1;
 class InvisibleSlot extends PIXI.Container {

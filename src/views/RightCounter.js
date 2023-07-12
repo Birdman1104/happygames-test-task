@@ -1,4 +1,4 @@
-import { lego } from "../lego/index.js";
+import { lego } from "../libs/lego/index.js";
 import { LevelModelEvents } from "../models/LevelModel.js";
 
 class RightCounter extends PIXI.Container {

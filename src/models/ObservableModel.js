@@ -1,4 +1,4 @@
-import { lego } from "../lego/index.js";
+import { lego } from "../libs/lego/index.js";
 
 const getUUID = (() => {
   let i = 0;
