@@ -15,30 +15,43 @@ export const unmapCommands = () => {
   });
 };
 
-export const onMainViewReadyCommand = () => {
+const onMainViewReadyCommand = () => {
   Head.initialize();
 };
 
-export const openSlotCommand = (uuid) => {
+const openSlotCommand = (uuid) => {
   Head.gameModel.levelModel.openSlot(uuid);
 };
 
-export const updateCountsCommand = () => {
-  Head.gameModel.levelModel.updateCounts();
+const levelCompleteGuard = () => {
+  const { totalSlots, openedSlotsCount } = Head.gameModel.levelModel;
+  console.warn(totalSlots, openedSlotsCount);
+  return totalSlots === openedSlotsCount;
 };
 
-export const updateWrongClickCountsCommand = () => {
+const updateCountsCommand = () => {
+  Head.gameModel.levelModel.updateCounts();
+};
+const onSlotOpenCommand = () => {
+  lego.command.execute(updateCountsCommand).guard(levelCompleteGuard).execute(levelCompleteCommand);
+};
+
+const levelCompleteCommand = () => {
+  //
+};
+
+const updateWrongClickCountsCommand = () => {
   Head.gameModel.levelModel.increaseWrongClick();
 };
 
-export const onSlotClickCommand = (uuid) => {
+const onSlotClickCommand = (uuid) => {
   lego.command
     //
     .payload(uuid)
     .execute(openSlotCommand);
 };
 
-export const eventCommandPairs = [
+const eventCommandPairs = [
   {
     event: GlobalEvents.MainViewReady,
     command: onMainViewReadyCommand,
@@ -49,7 +62,7 @@ export const eventCommandPairs = [
   },
   {
     event: SlotModelEvents.OpenUpdate,
-    command: updateCountsCommand,
+    command: onSlotOpenCommand,
   },
   {
     event: ViewEvents.WrongClick,

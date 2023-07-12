@@ -1,4 +1,4 @@
-import { BASE_URL } from "../configs/Const.js";
+import { fetchDataForLevel } from "./GameModel.js";
 import { ObservableModel } from "./ObservableModel.js";
 import { SlotModel } from "./SlotModel.js";
 
@@ -86,11 +86,11 @@ export class LevelModel extends ObservableModel {
     this._wrongClicks = value;
   }
 
-  async init() {
-    await this.#fetchSlotsData();
+  init(slots, imagesToLoad) {
+    this.slots = slots;
+    this.imagesToLoad = imagesToLoad;
     this.#initSlotsAndLayer();
     this._totalSlots = this.slots.length;
-    this.#getImagesData();
 
     this.updateCounts();
   }
@@ -114,7 +114,7 @@ export class LevelModel extends ObservableModel {
 
   #initSlotsAndLayer() {
     const tempArr = [];
-    for (const d of this._data) {
+    for (const d of this.slots) {
       const texture = `level${this._levelNumber}_${d.name}`;
       if (d.name === "layer_0") {
         this.layer = new SlotModel(d, texture);
@@ -127,20 +127,8 @@ export class LevelModel extends ObservableModel {
   }
 
   async #fetchSlotsData() {
-    // const levelDataLink = `${BASE_URL}/${4}/level.json`;
-    const levelDataLink = `${BASE_URL}${this._levelNumber}/level.json`;
-    const response = await fetch(levelDataLink);
-    const data = await response.json();
-    this._data = data.slots;
-  }
-
-  #getImagesData() {
-    this.imagesToLoad = this._data.map(({ name }) => {
-      return {
-        name: `level${this._levelNumber}_${name}`,
-        tag: name,
-        path: `${BASE_URL}${this._levelNumber}/images/${name}.jpg`,
-      };
-    });
+    const { slots, imagesToLoad } = await fetchDataForLevel(this._levelNumber);
+    this._data = slots;
+    this._imagesToLoad = imagesToLoad;
   }
 }
