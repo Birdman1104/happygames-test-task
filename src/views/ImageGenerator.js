@@ -1,7 +1,6 @@
 class ImageGenerator extends PIXI.Container {
   constructor(imageConfig, slotsConfig) {
     super();
-
     const { texture } = imageConfig;
     const image = PIXI.Sprite.from(texture);
     this.addChild(image);

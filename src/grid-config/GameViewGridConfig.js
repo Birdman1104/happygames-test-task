@@ -13,12 +13,18 @@ const getGameViewGridLandscapeConfig = () => {
       {
         name: "cell1_l",
         bounds: { x: 0, y: 0, width: 1, height: 0.5 },
-        // bounds: { x: 0.2, y: 0.5 * (1 - hr), width: 1 * wr, height: 0.5 * hr },
       },
       {
         name: "cell2_l",
         bounds: { x: 0, y: 0.5, width: 1, height: 0.5 },
-        // bounds: { x: 0.2, y: 0.5, width: 1 * wr, height: 0.5 * hr },
+      },
+      {
+        name: "cell1_p",
+        bounds: { x: 0, y: 0, width: 0.5, height: 1 },
+      },
+      {
+        name: "cell2_p",
+        bounds: { x: 0.5, y: 0, width: 0.5, height: 1 },
       },
     ],
   };
@@ -34,12 +40,18 @@ const getGameViewGridPortraitConfig = () => {
       {
         name: "cell1_l",
         bounds: { x: 0, y: 0, width: 1, height: 0.5 },
-        // bounds: { x: 0.2, y: 0.5 * (1 - hr), width: 1 * wr, height: 0.5 * hr },
       },
       {
         name: "cell2_l",
         bounds: { x: 0, y: 0.5, width: 1, height: 0.5 },
-        // bounds: { x: 0.2, y: 0.5, width: 1 * wr, height: 0.5 * hr },
+      },
+      {
+        name: "cell1_p",
+        bounds: { x: 0, y: 0, width: 0.5, height: 1 },
+      },
+      {
+        name: "cell2_p",
+        bounds: { x: 0.5, y: 0, width: 0.5, height: 1 },
       },
     ],
   };

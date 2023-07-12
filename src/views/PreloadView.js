@@ -30,11 +30,13 @@ class PreloadView extends Grid {
   }
 
   async #imagesToLoadUpdate(imagesToLoad) {
+    console.warn("load start");
     await this.#loadImages(imagesToLoad);
+    console.warn("load complete");
 
     this.#playButton.alpha = 1;
-    // this.emit(ViewEvents.PlayButtonClick);
-    this.#playButton.on("pointerdown", () => this.emit(ViewEvents.PlayButtonClick));
+    // lego.event.emit(ViewEvents.PlayButtonClick));
+    this.#playButton.on("pointerdown", () => lego.event.emit(ViewEvents.PlayButtonClick));
   }
 
   async #loadImages(imagesToLoad) {

@@ -1,10 +1,8 @@
 TODO
 
-- counter
-- next level
+- counter styles
+
 - fetch data for next level
-- landscape and portrait images
-- popup for win
 - fonts
 
 1 - get current level data

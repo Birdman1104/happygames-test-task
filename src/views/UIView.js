@@ -57,7 +57,7 @@ class UIView extends Grid {
   }
 
   #buildHeader() {
-    this.#header = new PIXI.Text("Level", {
+    this.#header = new PIXI.Text("", {
       fontSize: 55,
       align: "center",
     });
@@ -65,7 +65,7 @@ class UIView extends Grid {
   }
 
   #buildRightCounter() {
-    this.#rightCounter = new PIXI.Text(`Отличиий Найдено։ 0/0`, {
+    this.#rightCounter = new PIXI.Text(``, {
       fontSize: 26,
       align: "center",
     });

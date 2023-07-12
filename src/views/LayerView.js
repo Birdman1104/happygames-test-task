@@ -1,4 +1,4 @@
-import { LEVEL_TYPE } from "../configs/Const.js";
+import { LEVEL_TYPE as LAYER_TYPE } from "../configs/Const.js";
 import { ViewEvents } from "../configs/Events.js";
 import { lego } from "../lego/index.js";
 import { SlotModelEvents } from "../models/SlotModel.js";
@@ -7,7 +7,7 @@ import InvisibleSlot from "./InvisibleSlotView.js";
 
 const SCALE = 0.2;
 
-class LevelView extends PIXI.Container {
+class LayerView extends PIXI.Container {
   #imageConfig;
   #slotsConfig;
   #image;
@@ -28,7 +28,7 @@ class LevelView extends PIXI.Container {
   }
 
   #buildLayer() {
-    this.#type === LEVEL_TYPE.original ? this.#buildOriginalImage() : this.#buildImageWithSlots();
+    this.#type === LAYER_TYPE.original ? this.#buildOriginalImage() : this.#buildImageWithSlots();
 
     this.#image.eventMode = "static";
     this.#image.on("pointerdown", (e) => this.#onImageClick(e.global, e));
@@ -90,8 +90,7 @@ class LevelView extends PIXI.Container {
       if (dx < 0.01 && dy < 0.01) {
         image.x = image.width / 2 - (w / 2) * currentScale;
         image.y = image.height / 2 - (h / 2) * currentScale;
-        image.scale.x = targetX;
-        image.scale.y = targetY;
+        image.scale.set(targetX, targetY);
         image.alpha = targetAlpha;
         image.destroy();
         window.game.ticker.remove(animate);
@@ -104,12 +103,11 @@ class LevelView extends PIXI.Container {
     const image = PIXI.Sprite.from("wrong_click");
     const { width: w, height: h } = image;
     image.alpha = 0;
-    image.scale.x = SCALE;
-    image.scale.y = SCALE;
+    image.scale.set(SCALE);
     image.x = pos.x - (w / 2) * SCALE * this.#image.scale.x;
     image.y = pos.y - h / 2;
     return { image, width: w, height: h };
   }
 }
 
-export default LevelView;
+export default LayerView;

@@ -1,4 +1,3 @@
-import { fetchDataForLevel } from "./GameModel.js";
 import { ObservableModel } from "./ObservableModel.js";
 import { SlotModel } from "./SlotModel.js";
 
@@ -11,6 +10,7 @@ export const LevelModelEvents = {
   IsLandscapeUpdate: "LevelModelIsLandscapeUpdate",
   OpenedCountUpdate: "LevelModelOpenedSlotsCountUpdate",
   NotOpenedCountUpdate: "LevelModelTotalSlotsUpdate",
+  CompleteUpdate: "LevelModelIsCompleteUpdate",
 };
 
 export class LevelModel extends ObservableModel {
@@ -23,12 +23,18 @@ export class LevelModel extends ObservableModel {
   _openedSlotsCount = -1;
   _totalSlots = -1;
   _wrongClicks = 0;
+  _isComplete = false;
+  #slotsData; // slot config []
 
-  constructor(levelNumber) {
+  constructor(levelNumber, slots, imagesToLoad) {
     super("LevelModel");
 
     this._levelNumber = levelNumber;
     this.makeObservable();
+
+    this.init(slots, imagesToLoad);
+    this.initSlotsAndLayer();
+    this.updateCounts();
   }
 
   get isLandscape() {
@@ -78,6 +84,7 @@ export class LevelModel extends ObservableModel {
   set totalSlots(value) {
     this._totalSlots = value;
   }
+
   get wrongClicks() {
     return this._wrongClicks;
   }
@@ -86,13 +93,21 @@ export class LevelModel extends ObservableModel {
     this._wrongClicks = value;
   }
 
-  init(slots, imagesToLoad) {
-    this.slots = slots;
-    this.imagesToLoad = imagesToLoad;
-    this.#initSlotsAndLayer();
-    this._totalSlots = this.slots.length;
+  get isComplete() {
+    return this._isComplete;
+  }
 
-    this.updateCounts();
+  set isComplete(value) {
+    this._isComplete = value;
+  }
+
+  init(slots, imagesToLoad) {
+    this.#slotsData = slots;
+    this.imagesToLoad = imagesToLoad;
+  }
+
+  setComplete(value) {
+    this.isComplete = value;
   }
 
   updateCounts() {
@@ -112,9 +127,9 @@ export class LevelModel extends ObservableModel {
     this.wrongClicks += 1;
   }
 
-  #initSlotsAndLayer() {
+  initSlotsAndLayer() {
     const tempArr = [];
-    for (const d of this.slots) {
+    for (const d of this.#slotsData) {
       const texture = `level${this._levelNumber}_${d.name}`;
       if (d.name === "layer_0") {
         this.layer = new SlotModel(d, texture);
@@ -124,11 +139,6 @@ export class LevelModel extends ObservableModel {
       }
     }
     this.slots = tempArr;
-  }
-
-  async #fetchSlotsData() {
-    const { slots, imagesToLoad } = await fetchDataForLevel(this._levelNumber);
-    this._data = slots;
-    this._imagesToLoad = imagesToLoad;
+    this._totalSlots = this.slots.length;
   }
 }

@@ -49,8 +49,7 @@ class InvisibleSlot extends PIXI.Container {
     this.#frame.alpha = 0;
     this.#frame.width = w;
     this.#frame.height = h;
-    this.#frame.scale.x = SCALE;
-    this.#frame.scale.y = SCALE;
+    this.#frame.scale.set(SCALE);
     this.#frame.x = this.#image.width / 2 - (w / 2) * SCALE;
     this.#frame.y = this.#image.height / 2 - (h / 2) * SCALE;
     this.addChild(this.#frame);
@@ -77,8 +76,7 @@ class InvisibleSlot extends PIXI.Container {
       if (dx < 0.01 && dy < 0.01) {
         this.#frame.x = this.#image.width / 2 - (w / 2) * currentScale;
         this.#frame.y = this.#image.height / 2 - (h / 2) * currentScale;
-        this.#frame.scale.x = targetX;
-        this.#frame.scale.y = targetY;
+        this.#frame.scale.set(targetX, targetY);
         this.#frame.alpha = targetAlpha;
         window.game.ticker.remove(animate);
       }

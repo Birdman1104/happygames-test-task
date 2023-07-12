@@ -1,15 +1,20 @@
 import { ViewEvents } from "./configs/Events.js";
+import { lego } from "./lego/index.js";
+import ForegroundView from "./views/ForegroundView.js";
 import GameView from "./views/GameView.js";
 import PreloadView from "./views/PreloadView.js";
 import UIView from "./views/UIView.js";
 
 class PixiStage extends PIXI.Container {
-  #uiView;
   #preloadView;
   #gameView;
+  #uiView;
+  #foregroundView;
 
   constructor() {
     super();
+
+    lego.event.on(ViewEvents.PlayButtonClick, this.#onPlayButtonClick, this);
   }
 
   resize() {
@@ -20,7 +25,6 @@ class PixiStage extends PIXI.Container {
 
   start() {
     this.#preloadView = new PreloadView();
-    this.#preloadView.on(ViewEvents.PlayButtonClick, this.#onPlayButtonClick, this);
     this.addChild(this.#preloadView);
 
     this.#gameView = new GameView();
@@ -30,15 +34,17 @@ class PixiStage extends PIXI.Container {
     this.#uiView = new UIView();
     this.#uiView.alpha = 0;
     this.addChild(this.#uiView);
+
+    this.#foregroundView = new ForegroundView();
+    this.addChild(this.#foregroundView);
   }
 
   #onPlayButtonClick() {
     this.#preloadView.destroy();
-    this.#preloadView = null;
 
     this.#gameView.alpha = 1;
-    this.#uiView.alpha = 1;
     this.#gameView.showGame();
+    this.#uiView.alpha = 1;
   }
 }
 

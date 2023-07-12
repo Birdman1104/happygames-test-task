@@ -17,27 +17,32 @@ export const unmapCommands = () => {
 
 const onMainViewReadyCommand = () => {
   Head.initialize();
+  Head.gameModel.fetchDataForFirstLevel();
 };
 
-const openSlotCommand = (uuid) => {
-  Head.gameModel.levelModel.openSlot(uuid);
+const fetchNextLevelDataCommand = () => {
+  Head.gameModel.fetchNextLevelData();
 };
 
 const levelCompleteGuard = () => {
   const { totalSlots, openedSlotsCount } = Head.gameModel.levelModel;
-  console.warn(totalSlots, openedSlotsCount);
   return totalSlots === openedSlotsCount;
 };
 
 const updateCountsCommand = () => {
   Head.gameModel.levelModel.updateCounts();
 };
+
 const onSlotOpenCommand = () => {
-  lego.command.execute(updateCountsCommand).guard(levelCompleteGuard).execute(levelCompleteCommand);
+  lego.command
+    //
+    .execute(updateCountsCommand)
+    .guard(levelCompleteGuard)
+    .execute(levelCompleteCommand);
 };
 
 const levelCompleteCommand = () => {
-  //
+  Head.gameModel.levelModel.setComplete(true);
 };
 
 const updateWrongClickCountsCommand = () => {
@@ -45,10 +50,25 @@ const updateWrongClickCountsCommand = () => {
 };
 
 const onSlotClickCommand = (uuid) => {
+  Head.gameModel.levelModel.openSlot(uuid);
+};
+
+const lastLevelGuard = () => {
+  const { topLevel, level } = Head.gameModel;
+  return topLevel === level;
+};
+
+const onNextLevelClickCommand = () => {
   lego.command
-    //
-    .payload(uuid)
-    .execute(openSlotCommand);
+    .guard(lastLevelGuard)
+    .execute(() => {
+      console.warn(456);
+    })
+    .execute(startNextLevelCommand);
+};
+
+const startNextLevelCommand = () => {
+  Head.gameModel.setNextLevel();
 };
 
 const eventCommandPairs = [
@@ -67,5 +87,13 @@ const eventCommandPairs = [
   {
     event: ViewEvents.WrongClick,
     command: updateWrongClickCountsCommand,
+  },
+  {
+    event: ViewEvents.PlayButtonClick,
+    command: fetchNextLevelDataCommand,
+  },
+  {
+    event: ViewEvents.NextLevelClick,
+    command: onNextLevelClickCommand,
   },
 ];

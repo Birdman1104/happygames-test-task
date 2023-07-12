@@ -1,6 +1,6 @@
 import { mapCommands } from "./configs/EventCommandPairs.js";
 import { GlobalEvents } from "./configs/Events.js";
-import { lego } from "./lego/index.js";
+import { lego, legoLogger } from "./lego/index.js";
 import PixiStage from "./MainStage.js";
 import { fitDimension } from "./Utils.js";
 
@@ -22,7 +22,7 @@ export class App extends PIXI.Application {
 
     this.view.classList.add("app");
     document.body.appendChild(this.view);
-    // legoLogger.start(lego, Object.freeze({}));
+    legoLogger.start(lego, Object.freeze({}));
 
     await this.loadAssets();
     this.onLoadComplete();
@@ -56,6 +56,14 @@ export class App extends PIXI.Application {
       {
         name: "wrong_click",
         path: "assets/wrong_click.png",
+      },
+      {
+        name: "next_level",
+        path: "assets/next_level_button.png",
+      },
+      {
+        name: "popup",
+        path: "assets/popup.png",
       },
     ];
     for (const asset of assets) {
