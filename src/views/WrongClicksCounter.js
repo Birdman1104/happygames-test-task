@@ -13,6 +13,9 @@ class WrongClickCounter extends PIXI.Container {
     this.#build();
   }
 
+  updateCounter() {
+    this.#counter.text = "0";
+  }
   #onWrongClicksUpdate(newCount) {
     this.#counter.text = `${newCount}`;
   }

@@ -28,6 +28,7 @@ class UIView extends Grid {
 
   #onLevelUpdate(newLevel) {
     this.#header.text = `Уровень ${newLevel}`;
+    this.#wrongCounter.updateCounter();
     this.rebuild();
   }
 
