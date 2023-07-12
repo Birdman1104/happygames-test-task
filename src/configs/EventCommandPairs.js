@@ -17,7 +17,7 @@ export const unmapCommands = () => {
 
 const onMainViewReadyCommand = () => {
   Head.initialize();
-  Head.gameModel.fetchDataForFirstLevel();
+  Head.gameModel.fetchDataForNexLevel();
 };
 
 const fetchNextLevelDataCommand = () => {
@@ -62,7 +62,7 @@ const onNextLevelClickCommand = () => {
   lego.command
     .guard(lastLevelGuard)
     .execute(() => {
-      console.warn(456);
+      // console.warn(456);
     })
     .execute(startNextLevelCommand);
 };
@@ -88,10 +88,10 @@ const eventCommandPairs = [
     event: ViewEvents.WrongClick,
     command: updateWrongClickCountsCommand,
   },
-  {
-    event: ViewEvents.PlayButtonClick,
-    command: fetchNextLevelDataCommand,
-  },
+  // {
+  //   event: ViewEvents.PlayButtonClick,
+  //   command: fetchNextLevelDataCommand,
+  // },
   {
     event: ViewEvents.NextLevelClick,
     command: onNextLevelClickCommand,

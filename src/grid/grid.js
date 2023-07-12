@@ -1,13 +1,12 @@
 import { Cell } from "./cell.js";
-import { GridDebugger } from "./grid-debugger.js";
 import { CellScale } from "./types.js";
 import { Rect, align, fit } from "./utils.js";
 export class Grid extends PIXI.Container {
   constructor() {
     super();
     // if (process.env.NODE_ENV === "development") {
-    this._debugger = new GridDebugger();
-    this.addChild(this._debugger);
+    // this._debugger = new GridDebugger();
+    // this.addChild(this._debugger);
     // }
     const config = this.getGridConfig();
     this._cells = this._buildCells(config.cells);
@@ -37,8 +36,8 @@ export class Grid extends PIXI.Container {
     });
     /* debug */
     // if (process.env.NODE_ENV === "development" && debug != null) {
-    this._debugger.clear();
-    this._debugger.draw(this, debug);
+    // this._debugger.clear();
+    // this._debugger.draw(this, debug);
     // }
   }
   attach(cellName, content, addChild = true) {

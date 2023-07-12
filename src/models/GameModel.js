@@ -1,4 +1,5 @@
 import { BASE_URL } from "../configs/Const.js";
+import { LevelModel } from "./LevelModel.js";
 import { ObservableModel } from "./ObservableModel.js";
 
 export const GameModelEvents = {
@@ -69,37 +70,30 @@ export class GameModel extends ObservableModel {
   }
 
   initialize() {
-    this._level = 1;
+    //
   }
 
-  setNextLevel() {
-    // if (this._isLastLevel) return;
-    // this._level += 1;
-    // this._isLastLevel = this._level === this.#topLevel;
-    // const levelModel = new LevelModel(this._level, this._nextLevelSlots, []);
-    // // levelModel.init(this._nextLevelSlots, []);
-    // // levelModel.initSlotsAndLayer();
-    // // levelModel.updateCounts();
-    // this._levelModel = levelModel;
-    // this.fetchNextLevelData();
+  async setNextLevel() {
+    this._level += 1;
+    this._levelModel = new LevelModel(this._level, this._nextLevelSlots);
+    await this.fetchNextLevelData();
   }
 
-  async fetchDataForFirstLevel() {
-    // const { slots, imagesToLoad } = await fetchDataForLevel(this._level);
-    // this._levelModel = new LevelModel(this._level, slots, imagesToLoad);
-    // level.init(slots, imagesToLoad);
-    // level.initSlotsAndLayer();
-    // level.updateCounts();
-    // this._levelModel = level;
+  async fetchDataForNexLevel() {
+    const { slots, imagesToLoad } = await fetchDataForLevel(this._level + 1);
+    this.nextLevelImages = imagesToLoad;
+    await window.game.loadAssets(imagesToLoad);
+    this.level += 1;
+    this._levelModel = new LevelModel(this._level, slots);
+    await this.fetchNextLevelData();
   }
 
   async fetchNextLevelData() {
     if (this.level >= 5) return;
     const { slots, imagesToLoad } = await fetchDataForLevel(this._level + 1);
-    // this._nextLevelModel = new LevelModel(this._level, slots, imagesToLoad);
     this._nextLevelSlots = slots;
     this._nextLevelImages = imagesToLoad;
-    console.warn("Fetched data for level", this._level + 1, this._nextLevelImages);
+    await window.game.loadAssets(imagesToLoad);
   }
 }
 

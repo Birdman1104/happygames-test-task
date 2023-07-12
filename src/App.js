@@ -43,29 +43,32 @@ export class App extends PIXI.Application {
     lego.event.emit(GlobalEvents.Resize);
   }
 
-  async loadAssets() {
-    const assets = [
-      {
-        name: "play_round_btn",
-        path: "assets/play_round_btn.png",
-      },
-      {
-        name: "frame",
-        path: "assets/frame.png",
-      },
-      {
-        name: "wrong_click",
-        path: "assets/wrong_click.png",
-      },
-      {
-        name: "next_level",
-        path: "assets/next_level_button.png",
-      },
-      {
-        name: "popup",
-        path: "assets/popup.png",
-      },
-    ];
+  async loadAssets(images = []) {
+    const assets =
+      images.length > 0
+        ? images
+        : [
+            {
+              name: "play_round_btn",
+              path: "assets/play_round_btn.png",
+            },
+            {
+              name: "frame",
+              path: "assets/frame.png",
+            },
+            {
+              name: "wrong_click",
+              path: "assets/wrong_click.png",
+            },
+            {
+              name: "next_level",
+              path: "assets/next_level_button.png",
+            },
+            {
+              name: "popup",
+              path: "assets/popup.png",
+            },
+          ];
     for (const asset of assets) {
       const { name, path } = asset;
       PIXI.Assets.add(name, path);

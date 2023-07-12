@@ -7,7 +7,7 @@ class InvisibleSlot extends PIXI.Container {
   #image;
   #config;
   #frame; // Nine Slice
-  #isFrameShown = false;
+  #isClicked = false;
   #uuid;
   constructor(config) {
     super();
@@ -21,8 +21,6 @@ class InvisibleSlot extends PIXI.Container {
   }
 
   showFrame() {
-    if (this.#isFrameShown) return;
-    this.#isFrameShown = true;
     this.#tweenFrame();
   }
 
@@ -35,8 +33,9 @@ class InvisibleSlot extends PIXI.Container {
     const { width: w, height: h } = this.#config;
     this.#image = getGr(w, h, 0xff0000, 1);
     this.#image.eventMode = "dynamic";
-    this.#image.on("pointerdown", () => {
-      if (this.#isFrameShown) return;
+    this.#image.once("pointerdown", () => {
+      if (this.#isClicked) return;
+      this.#isClicked = true;
       lego.event.emit(ViewEvents.SlotClick, this.#uuid);
     });
     this.#image.alpha = 0;

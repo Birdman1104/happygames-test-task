@@ -40,7 +40,6 @@ class UIView extends Grid {
   }
 
   #onOpenedCountUpdate(newCount) {
-    console.warn(newCount);
     this.#rightCounter.text = `Отличиий Найдено։ ${newCount}/${this.#totalSlots}`;
     this.rebuild();
   }

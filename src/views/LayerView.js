@@ -22,6 +22,11 @@ class LayerView extends PIXI.Container {
     lego.event.on(SlotModelEvents.OpenUpdate, this.#onSlotOpenUpdate, this);
   }
 
+  destroy() {
+    lego.event.off(SlotModelEvents.OpenUpdate, this.#onSlotOpenUpdate, this);
+    super.destroy();
+  }
+
   #build() {
     this.#buildLayer();
     this.#buildSlots();

@@ -11,6 +11,18 @@ class PopupView extends PIXI.Container {
     this.#build();
   }
 
+  disable() {
+    this.#button.eventMode = "none";
+  }
+
+  enable() {
+    this.#button.eventMode = "static";
+  }
+
+  removeButton() {
+    this.#button.destroy();
+  }
+
   #build() {
     this.#buildBkg();
     this.#buildHeader();
@@ -41,7 +53,6 @@ class PopupView extends PIXI.Container {
     this.#button.y = this.#bkg.height * 0.25;
     this.#button.eventMode = "static";
     this.#button.on("pointerdown", () => {
-      console.warn("next click");
       lego.event.emit(ViewEvents.NextLevelClick);
     });
     this.addChild(this.#button);

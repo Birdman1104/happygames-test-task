@@ -9,6 +9,7 @@ import PopupView from "./PopupView.js";
 class ForegroundView extends Grid {
   #popup;
   #blocker;
+  #gameLevel;
 
   constructor() {
     super();
@@ -30,12 +31,14 @@ class ForegroundView extends Grid {
   showPopup() {
     this.#blocker.alpha = 1;
     this.#blocker.eventMode = "static";
+    this.#gameLevel < 5 ? this.#popup.enable() : this.#popup.removeButton();
     this.#popup.alpha = 1;
   }
 
   hidePopup() {
     this.#blocker.alpha = 0;
     this.#blocker.eventMode = "none";
+    this.#popup.disable();
     this.#popup.alpha = 0;
   }
 
@@ -45,7 +48,8 @@ class ForegroundView extends Grid {
     }, 500);
   }
 
-  #onLevelUpdate() {
+  #onLevelUpdate(level) {
+    this.#gameLevel = level;
     this.hidePopup();
   }
 
