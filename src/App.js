@@ -7,12 +7,11 @@ import { fitDimension } from "./Utils.js";
 export class App extends PIXI.Application {
   constructor() {
     super({
-      backgroundColor: 0x343434,
+      backgroundColor: 0xffffff,
       backgroundAlpha: 1,
       powerPreference: "high-performance",
       antialias: true,
       resolution: Math.max(window.devicePixelRatio || 1, 2),
-      // resolution: 2,
       sharedTicker: true,
     });
   }
@@ -74,6 +73,8 @@ export class App extends PIXI.Application {
       PIXI.Assets.add(name, path);
       await PIXI.Assets.load(name);
     }
+
+    await PIXI.Assets.load("assets/Filmotype_Major.otf");
     // for (const atlas of atlases) {
     //   const { name, json } = atlas;
     //   PIXI.Assets.add(name, json);

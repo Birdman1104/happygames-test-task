@@ -82,6 +82,7 @@ export class GameModel extends ObservableModel {
   async fetchDataForNexLevel() {
     const { slots, imagesToLoad } = await fetchDataForLevel(this._level + 1);
     this.nextLevelImages = imagesToLoad;
+    // HARDCODE need to find a better way to load assets
     await window.game.loadAssets(imagesToLoad);
     this.level += 1;
     this._levelModel = new LevelModel(this._level, slots);

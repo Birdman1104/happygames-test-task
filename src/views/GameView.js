@@ -13,7 +13,6 @@ class GameView extends Grid {
     super();
 
     lego.event.on(GameModelEvents.LevelModelUpdate, this.#onLevelModelUpdate, this);
-    lego.event.on(GameModelEvents.NextLevelImagesUpdate, this.#onNextLevelImagesUpdate, this);
   }
 
   getGridConfig() {
@@ -22,10 +21,6 @@ class GameView extends Grid {
 
   rebuild() {
     super.rebuild(getGameViewGridConfig());
-  }
-
-  showGame() {
-    return;
   }
 
   #onLevelModelUpdate(newLevel) {
@@ -39,10 +34,6 @@ class GameView extends Grid {
 
     this.#imageOriginal = new LayerView(this.#levelConfig, LEVEL_TYPE.original);
     this.attach(`cell2_${isLandscape ? "l" : "p"}`, this.#imageOriginal);
-  }
-
-  setViews() {
-    if (this.#imageSlots) return;
   }
 }
 

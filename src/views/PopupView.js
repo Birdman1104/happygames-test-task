@@ -39,6 +39,7 @@ class PopupView extends PIXI.Container {
     this.#header = new PIXI.Text("ПОБЕДА", {
       fontSize: 50,
       align: "center",
+      fontFamily: "Filmotype Major",
     });
     this.#header.anchor.set(0.5);
     this.#header.x = this.#bkg.x;

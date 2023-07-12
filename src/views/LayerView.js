@@ -34,10 +34,16 @@ class LayerView extends PIXI.Container {
 
   #buildLayer() {
     this.#type === LAYER_TYPE.original ? this.#buildOriginalImage() : this.#buildImageWithSlots();
+    const circle = new PIXI.Graphics();
+    circle.beginFill(0xff0000, 0.5);
+    circle.drawRoundedRect(0, 0, this.#image.width, this.#image.height);
+    circle.endFill();
 
+    this.#image.mask = circle;
     this.#image.eventMode = "static";
     this.#image.on("pointerdown", (e) => this.#onImageClick(e.global, e));
     this.addChild(this.#image);
+    this.addChild(circle);
   }
 
   #buildOriginalImage() {
