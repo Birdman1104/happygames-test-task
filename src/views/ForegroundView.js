@@ -31,7 +31,7 @@ class ForegroundView extends Grid {
   showPopup() {
     this.#blocker.alpha = 1;
     this.#blocker.eventMode = "static";
-    this.#gameLevel < 5 ? this.#popup.enable() : this.#popup.removeButton();
+    this.#popup.enable();
     this.#popup.alpha = 1;
   }
 

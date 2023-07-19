@@ -75,6 +75,7 @@ export class GameModel extends ObservableModel {
 
   async setNextLevel() {
     this._level += 1;
+    if (this.level > 5) this.level = 1;
     this._levelModel = new LevelModel(this._level, this._nextLevelSlots);
     await this.fetchNextLevelData();
   }
@@ -90,7 +91,7 @@ export class GameModel extends ObservableModel {
   }
 
   async fetchNextLevelData() {
-    if (this.level >= 5) return;
+    if (this.level > 5) this.level = 1;
     const { slots, imagesToLoad } = await fetchDataForLevel(this._level + 1);
     this._nextLevelSlots = slots;
     this._nextLevelImages = imagesToLoad;
@@ -99,6 +100,7 @@ export class GameModel extends ObservableModel {
 }
 
 export const fetchDataForLevel = async (level) => {
+  level = level > 5 ? 1 : level;
   const levelDataLink = `${BASE_URL}${level}/level.json`;
   const response = await fetch(levelDataLink);
   const data = await response.json();

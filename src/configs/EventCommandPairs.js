@@ -20,10 +20,6 @@ const onMainViewReadyCommand = () => {
   Head.gameModel.fetchDataForNexLevel();
 };
 
-const fetchNextLevelDataCommand = () => {
-  Head.gameModel.fetchNextLevelData();
-};
-
 const levelCompleteGuard = () => {
   const { totalSlots, openedSlotsCount } = Head.gameModel.levelModel;
   return totalSlots === openedSlotsCount;

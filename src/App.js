@@ -68,8 +68,11 @@ export class App extends PIXI.Application {
               path: "assets/popup.png",
             },
           ];
+
     for (const asset of assets) {
       const { name, path } = asset;
+      if (PIXI.Assets.cache.get(name)) continue;
+      console.clear();
       PIXI.Assets.add(name, path);
       await PIXI.Assets.load(name);
     }
